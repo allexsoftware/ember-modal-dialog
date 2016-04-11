@@ -51,22 +51,6 @@ export default Ember.Component.extend({
     }
   }),
 
-  didInsertElement() {
-    if (!this.get('clickOutsideToClose')) {
-      return;
-    }
-
-    const handleClick = (event) => {
-      if (!$(event.target).closest('.ember-modal-dialog').length) {
-        this.send('close');
-      }
-    };
-    const registerClick = () => $(document).on('click.ember-modal-dialog', handleClick);
-
-    // setTimeout needed or else the click handler will catch the click that spawned this modal dialog
-    setTimeout(registerClick);
-    this._super(...arguments);
-  },
   willDestroyElement() {
     $(document).off('click.ember-modal-dialog');
     this._super(...arguments);
